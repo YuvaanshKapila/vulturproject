@@ -28,3 +28,16 @@ export interface Contact {
   openToWork: boolean;
   certifications: string[];
 }
+
+export interface Role {
+  id: string;
+  title: string;
+  department: string;
+  team: string;
+  location: string;
+  workplaceType: string;
+  employmentType: string;
+  isRemote: boolean;
+  description: string;
+  jobUrl: string;
+}
