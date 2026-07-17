@@ -16,3 +16,20 @@ evne though claude built it its still important to understand what it does and u
     - alredy  defined the ts types in types.ts with sub types as well explained in previous notes 
     - defines the typescript types like contact and role with subtypes like experience and education for btoh worker functiosn to use. 
 
+## Part 2:
+
+### Task 1
+- Profile text
+
+### Task 2
+- Embed the contacts with Qwen
+
+### Task 3
+- Cosine similarity
+
+### Task 4
+- Scoring function
+
+### Task 5
+- Rank
+
