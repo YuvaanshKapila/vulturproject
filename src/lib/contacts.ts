@@ -22,6 +22,7 @@ interface RawRow {
 }
 
 const CSV_PATH = path.join(process.cwd(), "data", "contacts.csv");
+const CLEANED_PATH = path.join(process.cwd(), "data", "cleaned-contacts.json");
 
 function splitPipes(value: string): string[] {
   return (value ?? "").split("|").map((s) => s.trim()).filter(Boolean);
@@ -80,4 +81,10 @@ export function loadContacts(): Contact[] {
   const csv = fs.readFileSync(CSV_PATH, "utf8");
   const { data } = Papa.parse<RawRow>(csv, { header: true, skipEmptyLines: true });
   return data.filter((row) => row.id).map(toContact);
+}
+
+export function saveContacts(): Contact[] {
+  const contacts = loadContacts();
+  fs.writeFileSync(CLEANED_PATH, JSON.stringify(contacts, null, 2), "utf8");
+  return contacts;
 }
