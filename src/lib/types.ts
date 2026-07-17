@@ -41,3 +41,16 @@ export interface Role {
   description: string;
   jobUrl: string;
 }
+
+export interface ScoreSignals {
+  semantic: number;
+  experience: number;
+  seniority: number;
+  location: number;
+  availability: number;
+}
+
+export interface ScoreBreakdown {
+  total: number;
+  signals: ScoreSignals;
+}
