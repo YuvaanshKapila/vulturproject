@@ -1,7 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { loadContacts } from "./contacts";
-import { contactProfileText } from "./profileText";
+import { contactProfileText, roleProfileText } from "./profileText";
+import type { Role } from "./types";
 
 const OLLAMA_URL = "http://localhost:11434/api/embed";
 const MODEL = "qwen3-embedding:4b";
@@ -34,6 +35,11 @@ export async function embedTexts(texts: string[], instruction?: string): Promise
   if (!res.ok) throw new Error(`Ollama embed failed: ${res.status}`);
   const data: { embeddings: number[][] } = await res.json();
   return data.embeddings;
+}
+
+export async function embedRole(role: Role): Promise<number[]> {
+  const [vector] = await embedTexts([roleProfileText(role)], ROLE_INSTRUCTION);
+  return round(vector);
 }
 
 export async function embedContacts(): Promise<EmbeddedContact[]> {
