@@ -8,6 +8,7 @@ const OLLAMA_URL = "http://localhost:11434/api/embed";
 const MODEL = "qwen3-embedding:4b";
 const BATCH_SIZE = 32;
 const CONTACT_EMBEDDINGS_PATH = path.join(process.cwd(), "data", "contact-embeddings.json");
+const ROLE_EMBEDDINGS_PATH = path.join(process.cwd(), "data", "role-embeddings.json");
 
 export const ROLE_INSTRUCTION =
   "Given a job posting, retrieve the profiles of professionals whose skills, experience, and background make them a strong match for the role.";
@@ -40,6 +41,23 @@ export async function embedTexts(texts: string[], instruction?: string): Promise
 export async function embedRole(role: Role): Promise<number[]> {
   const [vector] = await embedTexts([roleProfileText(role)], ROLE_INSTRUCTION);
   return round(vector);
+}
+
+export function loadRoleVectorCache(): Record<string, number[]> {
+  try {
+    return JSON.parse(fs.readFileSync(ROLE_EMBEDDINGS_PATH, "utf8"));
+  } catch {
+    return {};
+  }
+}
+
+export async function saveRoleEmbeddings(roles: Role[]): Promise<Record<string, number[]>> {
+  const cache: Record<string, number[]> = {};
+  for (const role of roles) {
+    cache[role.id] = await embedRole(role);
+  }
+  fs.writeFileSync(ROLE_EMBEDDINGS_PATH, JSON.stringify(cache), "utf8");
+  return cache;
 }
 
 export async function embedContacts(): Promise<EmbeddedContact[]> {

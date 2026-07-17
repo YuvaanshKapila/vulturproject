@@ -54,3 +54,8 @@ export interface ScoreBreakdown {
   total: number;
   signals: ScoreSignals;
 }
+
+export interface RankedCandidate {
+  contact: Contact;
+  score: ScoreBreakdown;
+}

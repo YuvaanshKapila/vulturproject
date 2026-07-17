@@ -22,7 +22,8 @@ function words(text: string): string[] {
   return text.toLowerCase().match(/[a-z0-9+#]+/g) ?? [];
 }
 
-function semanticSignal(contactVector: number[], roleVector: number[]): number {
+function semanticSignal(contactVector: number[], roleVector: number[] | null): number {
+  if (!roleVector) return 0;
   const cos = cosineSimilarity(contactVector, roleVector);
   return clamp((cos - 0.45) / 0.22);
 }
@@ -86,7 +87,7 @@ export function scoreContact(
   contact: Contact,
   contactVector: number[],
   role: Role,
-  roleVector: number[],
+  roleVector: number[] | null,
 ): ScoreBreakdown {
   const signals: ScoreSignals = {
     semantic: semanticSignal(contactVector, roleVector),

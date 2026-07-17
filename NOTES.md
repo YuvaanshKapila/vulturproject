@@ -48,6 +48,23 @@ each time it runs
 - availability at 10 % 
 - seinority at 10%
 - location at 5%
+total = 100 × ( semantic×0.50 + experience×0.25 + seniority×0.10 + location×0.05 + availability×0.10 )
+
 ### Task 5
 - Rank
+- now makes a funciton that runs everything toghether adn returns the top prospect, instead of running on one role. 
 
+## Part 3:
+- precomputed the role vectors into a json so if the persosn grading doesnt have ollama it still works, and if a new role isnt cached it falls back to embeding it live with ollama
+
+### Task 1
+- Roles list (home page)
+
+### Task 2
+- Ranked candidates for a selected role
+
+### Task 3
+- Score breakdown (why they matched)
+
+### Task 4
+- Styling / brand colors
