@@ -55,16 +55,20 @@ total = 100 × ( semantic×0.50 + experience×0.25 + seniority×0.10 + location�
 - now makes a funciton that runs everything toghether adn returns the top prospect, instead of running on one role. 
 
 ## Part 3:
-- precomputed the role vectors into a json so if the persosn grading doesnt have ollama it still works, and if a new role isnt cached it falls back to embeding it live with ollama
+precomputed the role vectors into a json so if the persosn grading doesnt have ollama it still works, and if a new role isnt cached it falls back to embeding it live with ollama
 
 ### Task 1
 - Roles list (home page)
+    - the home page reads the scraped roles.json and lists every role as a clickable card, clicking one takes you to that roles page
 
 ### Task 2
 - Ranked candidates for a selected role
+    - the role page runs rankContacts for that role (top 20) and shows each candidate with their name, current title, an open to work badge, top skills and the match score
 
 ### Task 3
 - Score breakdown (why they matched)
+    - made a ScoreBreakdown componenet that shows the 5 signals as little bars so you can see WHY someone matched, not just the final numebr
 
 ### Task 4
 - Styling / brand colors
+    - built on the exisiting frontend and used the vultur ember brand color, also added a dark mode toggle with a moon icon

@@ -10,6 +10,11 @@
   --ember-dark: #8f3c00;
 }
 
+.dark {
+  --background: #0b0b0c;
+  --foreground: #ededed;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);

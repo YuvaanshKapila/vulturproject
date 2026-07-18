@@ -15,7 +15,7 @@ interface JobPosting {
   employmentType: string;
 }
 
-function extractAppData(html: string): any {
+function extractAppData<T>(html: string): T {
   const marker = "window.__appData = ";
   const start = html.indexOf(marker);
   if (start === -1) throw new Error("window.__appData not found in page source");
@@ -42,7 +42,7 @@ function extractAppData(html: string): any {
       }
     }
   }
-  return JSON.parse(html.slice(objStart, i));
+  return JSON.parse(html.slice(objStart, i)) as T;
 }
 
 function stripHtml(html: string): string {
@@ -69,14 +69,14 @@ async function fetchPage(url: string): Promise<string> {
 
 export async function fetchRoles(): Promise<Role[]> {
   const boardHtml = await fetchPage(BOARD_URL);
-  const boardData = extractAppData(boardHtml);
+  const boardData = extractAppData<{ jobBoard: { jobPostings: JobPosting[] } }>(boardHtml);
   const postings: JobPosting[] = boardData.jobBoard.jobPostings;
 
   const roles: Role[] = [];
   for (const p of postings) {
     const jobUrl = `${BOARD_URL}/${p.id}`;
     const jobHtml = await fetchPage(jobUrl);
-    const jobData = extractAppData(jobHtml);
+    const jobData = extractAppData<{ posting?: { descriptionHtml?: string } }>(jobHtml);
     const description = stripHtml(jobData.posting?.descriptionHtml ?? "");
 
     roles.push({

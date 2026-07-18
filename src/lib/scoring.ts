@@ -29,7 +29,7 @@ function semanticSignal(contactVector: number[], roleVector: number[] | null): n
 }
 
 function meaningfulWords(text: string): string[] {
-  return [...new Set(words(text).filter((w) => w.length > 2 && !STOPWORDS.has(w)))];
+  return Array.from(new Set(words(text).filter((w) => w.length > 2 && !STOPWORDS.has(w))));
 }
 
 function experienceSignal(contact: Contact, role: Role): number {
